@@ -1,5 +1,4 @@
 zip deployment_package.zip
-deactivate
 
 cd venv/lib/python3.12/site-packages
 zip -r ../../../../deployment_package.zip . -x "*/__pycache__/*"
