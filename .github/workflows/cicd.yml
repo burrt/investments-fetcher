@@ -4,9 +4,18 @@ on:
   push:
     branches:
     - main
+  # TODO: REMOVE
   pull_request:
     branches:
       - main
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  AWS_LAMBDA_NAME: investments-fetcher
+  AWS_REGION : ap-southeast-2
 
 jobs:
   deploy:
@@ -28,5 +37,18 @@ jobs:
     - name: Installing packages
       run: pip install -r requirements.txt --target ./package
 
-    - name: Deplying to AWS Lambda
-      run: ./deploy.sh
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::398018169858:role/GitHubActionsRole
+        role-session-name: GitHubActionsRole
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Create deployment zip
+      run: ./prepare-deploy.sh
+
+    - name: Deploying Lambda
+      run: aws lambda update-function-code --function-name ${{ env.AWS_LAMBDA_NAME }} --zip-file fileb://deployment_package.zip
+
+    - name: Tagging Lambda with commit ${{ github.sha }}
+      run: aws lambda tag-resource --resource arn:aws:lambda:${{ env.AWS_REGION }}:398018169858:function:${{ env.AWS_LAMBDA_NAME }} --tags GIT_COMMIT=${{ github.sha }}

@@ -15,6 +15,3 @@ zip -r deployment_package.zip data_source -x "*/__pycache__/*"
 zip -r deployment_package.zip logger -x "*/__pycache__/*"
 
 zip deployment_package.zip fetcher.py -x "*/__pycache__/*"
-
-echo "Deploying Lambda..."
-aws lambda update-function-code --function-name investments-fetcher --zip-file fileb://deployment_package.zip
