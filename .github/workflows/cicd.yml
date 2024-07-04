@@ -50,5 +50,5 @@ jobs:
     - name: Deploying Lambda
       run: aws lambda update-function-code --function-name ${{ env.AWS_LAMBDA_NAME }} --zip-file fileb://deployment_package.zip
 
-    - name: Tagging Lambda with commit ${{ github.sha }}
-      run: aws lambda tag-resource --resource arn:aws:lambda:${{ env.AWS_REGION }}:398018169858:function:${{ env.AWS_LAMBDA_NAME }} --tags GIT_COMMIT=${{ github.sha }}
+    - name: Tagging Lambda with commit $GITHUB_SHA
+      run: aws lambda tag-resource --resource arn:aws:lambda:${{ env.AWS_REGION }}:398018169858:function:${{ env.AWS_LAMBDA_NAME }} --tags GIT_COMMIT=$GITHUB_SHA
