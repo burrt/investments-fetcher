@@ -16,10 +16,10 @@ series_id_map = {
     "LNS14000000":          "Unemployment rate", # good
 }
 
-api_base_url = "https://api.bls.gov/publicAPI"
+API_BASE_URL = "https://api.bls.gov/publicAPI"
 headers = {'Content-type': 'application/json'}
 
-def http_post(api_key, series_id, start_year, end_year):
+def _http_post(api_key: str, series_id: str, start_year: int, end_year: int):
     data = {
         "seriesid": [series_id],
         "startyear": start_year,
@@ -27,14 +27,25 @@ def http_post(api_key, series_id, start_year, end_year):
         "registrationkey": api_key
     }
 
-    res = requests.post(f"{api_base_url}/v2/timeseries/data/", data=json.dumps(data), headers=headers)
+    res = requests.post(f"{API_BASE_URL}/v2/timeseries/data/", data=json.dumps(data), headers=headers, timeout=120)
 
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return res.json()
 
-def get_series_data(api_key, series_id, start_year, end_year):
+def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int):
+    """Get the BLS data for the specified series.
+
+    Args:
+        api_key (str): API key to use in the request
+        series_id (str): BLS data series ID
+        start_year (int): start year of the data to fetch
+        end_year (int): end year of the data to fetch
+
+    Returns:
+        json: response in json form
+    """
     logging.info(f"Getting ({series_id}) {series_id_map[series_id]} for years {start_year}-{end_year}")
 
-    return http_post(api_key, series_id, start_year, end_year)
+    return _http_post(api_key, series_id, start_year, end_year)
