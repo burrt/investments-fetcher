@@ -1,0 +1,50 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+    - main
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  AWS_LAMBDA_NAME: investments-fetcher
+  AWS_REGION : ap-southeast-2
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning the repo
+      uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip' # caching pip dependencies
+    - name: Setting up Python environment
+      run: python3 -m venv venv
+    - run: source venv/bin/activate
+    - run: mkdir package
+
+    - name: Installing packages
+      run: pip install -r requirements.txt --target ./package
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::398018169858:role/GitHubActionsRole
+        role-session-name: GitHubActionsRole
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Create deployment zip
+      run: ./prepare-deploy.sh
+
+    - name: Deploying Lambda
+      run: aws lambda update-function-code --function-name ${{ env.AWS_LAMBDA_NAME }} --zip-file fileb://deployment_package.zip
+
+    - name: Tagging Lambda with commit $GITHUB_SHA
+      run: aws lambda tag-resource --resource arn:aws:lambda:${{ env.AWS_REGION }}:398018169858:function:${{ env.AWS_LAMBDA_NAME }} --tags GIT_COMMIT=$GITHUB_SHA

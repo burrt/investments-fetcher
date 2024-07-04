@@ -1,5 +1,4 @@
 *.json
-requirements.txt
 deployment_package.zip
 data/
 package/

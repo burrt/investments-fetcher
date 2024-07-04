@@ -34,7 +34,7 @@ def fetch_data(event, context):
     return "OK"
 
 def lambda_handler(event, context):
-    setup_logging(context.request_id)
+    setup_logging(context.aws_request_id)
     fetch_data(event, context)
 
 def main():

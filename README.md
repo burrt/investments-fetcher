@@ -1,4 +1,6 @@
-# Investment watcher
+# Investments Fetcher
+
+![CICD status](https://github.com/burrt/investments-fetcher/actions/workflows/cicd.yml/badge.svg?branch=main)
 
 Pulls economic data from official sources.
 
@@ -25,43 +27,7 @@ $ python fetcher.py
 
 ## Deploying to AWS Lambda
 
-```bash
-# setup virtual env
-$~/investments-fetcher$ python3.12 -m venv venv
-$~/investments-fetcher source ./venv/bin/activate
-
-# use pip-tools
-$ python -m pip install pip-tools
-$ pip-compile requirements.in
-
-# install packages to /package
-$ mkdir package
-
-$ pip install -r requirements.txt --target ./package
-
-# zip python venv
-$~/investments-fetcher deactivate
-$~/investments-fetcher cd venv/lib/python3.12/site-packages
-$~/investments-fetcher/venv/lib/python3.12/site-packages$ zip -r ../../../../deployment_package.zip .
-
-# zip installed packages into the deployment blob
-$ cd ../../../../
-$ cd package
-$ zip -r ../deployment_package.zip .
-$ cd ..
-
-# zip any modules
-$ zip -r deployment_package.zip aws
-$ zip -r deployment_package.zip data_source
-$ zip -r deployment_package.zip logger
-
-$ zip deployment_package.zip fetcher.py
-
-$ aws lambda create-function --function-name investments-fetcher \
---runtime python3.12 --handler fetcher.lambda_handler \
---role arn:aws:iam::398018169858:role/investments-fetcher-lambda-role \
---zip-file fileb://deployment_package.zip
-
-$ aws lambda update-function-code --function-name investments-fetcher --zip-file fileb://deployment_package.zip
-
-```
+* the deployment package is created with the `prepare-deploy.sh`
+* using GitHub Actions for full deployment - see `cicd.yml`
+* OIDC is setup with GitHub and AWS with the role authorized to update the Lambda
+* AWS Lambda function is tagged with the latest commit hash
