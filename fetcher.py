@@ -5,6 +5,7 @@ Fetches investments data.
 import uuid
 import logging
 from aws import param_store
+from aws import s3
 from data_source import bea
 from data_source import bls
 from logger.json_logger import JsonFormatter
@@ -13,14 +14,14 @@ from logger.json_logger import JsonFormatter
 json_logger = logging.getLogger()
 json_logger.setLevel(logging.INFO)
 
-def _setup_logging(request_id):
+def _setup_logging(request_id: str):
     for handler in json_logger.handlers[:]:
         json_logger.removeHandler(handler)
     handler = logging.StreamHandler()
     handler.setFormatter(JsonFormatter(request_id))
     json_logger.addHandler(handler)
 
-def _fetch_data(event, context):
+def _fetch_data(event: dict, context):
     logging.info(f"Event: {event}")
     logging.info(f"Context: {context}")
 
@@ -28,16 +29,20 @@ def _fetch_data(event, context):
 
     bea_api_key = param_store.get_param_value('/investments-fetcher/bea/api')
     bls_api_key = param_store.get_param_value('/investments-fetcher/bls/api')
+    start_year = event['start_year']
+    end_year = event['end_year']
 
-    # examples
     if event['data_source'] == "bea":
-        logging.info(bea._http_get(bea_api_key, event['data_id'], event['start_year']))
+        data = bea.get_gdp(bea_api_key, event['data_id'], start_year)
+        end_year = start_year
     elif event['data_source'] == "bls":
-        logging.info(bls.get_series_data(bls_api_key, event['data_id'], event['start_year'], event['end_year']))
+        data = bls.get_series_data(bls_api_key, event['data_id'], start_year, end_year)
+
+    s3.upload_data(event['data_id'], start_year, end_year, data)
 
     return "OK"
 
-def lambda_handler(event, context):
+def lambda_handler(event: dict, context):
     """AWS Lambda function entry point for a request.
 
     Args:
