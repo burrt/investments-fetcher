@@ -20,7 +20,22 @@ gdp_table_id_map = {
 
 API_BASE_URL = "https://apps.bea.gov/api/data"
 
-def _http_get(api_key, table_id, year, freq="Q"):
+def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
+    """Get the GDP data for the given ID.
+
+    Args:
+        api_key (str): BEA API key to use
+        table_id (str): GDP table ID
+        year (int): GDP year to fetch
+        freq (str, optional): frequency of GDP interval. Defaults to "Q" i.e. quarterly
+
+    Raises:
+        RuntimeError: for non-successful status code
+
+    Returns:
+        json: response in json form
+    """
+
     # Appendix B – NIPA (National Income and Product Accounts)
     data_set_name = "NIPA"
 
@@ -41,4 +56,4 @@ def get_all_gdp(year: int, freq="Q"):
         freq (str, optional): GDP granularity. Defaults to "Q" i.e. quarterly.
     """
     for table_id in gdp_table_id_map:
-        _http_get(table_id, year, freq)
+        get_gdp(table_id, year, freq)
