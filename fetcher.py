@@ -31,9 +31,10 @@ def _fetch_data(event: dict, context):
     bls_api_key = param_store.get_param_value('/investments-fetcher/bls/api')
     start_year = event['start_year']
     end_year = event['end_year']
+    freq = event['frequency']
 
     if event['data_source'] == "bea":
-        data = bea.get_gdp(bea_api_key, event['data_id'], start_year)
+        data = bea.get_gdp(bea_api_key, event['data_id'], start_year, freq)
         end_year = start_year
     elif event['data_source'] == "bls":
         data = bls.get_series_data(bls_api_key, event['data_id'], start_year, end_year)
@@ -62,6 +63,7 @@ def main():
         "data_id": "CUUR0000SA0",
         "start_year": "2023",
         "end_year": "2024",
+        "frequency": "Q"
     }
 
     _fetch_data(event, None)
