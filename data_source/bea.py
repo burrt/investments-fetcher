@@ -41,7 +41,17 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
 
     logging.info(f"Getting GDP ({table_id}) for year {year}")
 
-    res = requests.get(f"{API_BASE_URL}?&UserID={api_key}&method=GetData&DataSetName={data_set_name}&Year={year}&Industry=ALL&TableName={table_id}&Frequency={freq}&ResultFormat=JSON", timeout=120)
+    params = {
+        "UserID": api_key,
+        "method": "GetData",
+        "DataSetName": data_set_name,
+        "Year": year,
+        "Industry": "ALL",
+        "TableName": table_id,
+        "Frequency": freq,
+        "ResultFormat": "JSON",
+    }
+    res = requests.get(f"{API_BASE_URL}", params=params, timeout=120)
 
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
