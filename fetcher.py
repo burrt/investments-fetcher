@@ -42,11 +42,12 @@ def _fetch_data(event: dict, context):
     elif event['data_source'] == "bls":
         data = bls.get_series_data(bls_api_key, event['data_id'], start_year, end_year)
     elif event['data_source'] == "dol":
+        event['data_source'] = "10281"
         data = dol.get_unemployment_weekly_claims(dol_api_key)
 
     logging.info(data)
 
-    # s3.upload_data(event['data_id'], start_year, end_year, data)
+    s3.upload_data(event['data_id'], start_year, end_year, data)
 
     return "OK"
 
