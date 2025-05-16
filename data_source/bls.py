@@ -9,11 +9,13 @@ import requests
 
 series_id_map = {
     "CUUR0000SA0":          "Consumer Price Index - All Urban Consumers", # good
+    "CES0000000001":        "National Employment, Hours, and Earnings", # good - https://www.bls.gov/news.release/empsit.t17.htm
+    "LNS14000000":          "Unemployment rate", # good
+    "WPSFD4":               "United States Producer Price Inflation MoM", # good
+
     "CUUR0000SA0L1E":       "Consumer Price Index - All Urban Consumers (All items less food and energy)", # good
     "PCU22112222112241":    "Producer Price Index Industry Data - Current Series", # TBD
     "WPS141101":            "Producer Price Index Commodity Data - Current Series", # good
-    "CEU0800000003":        "National Employment, Hours, and Earnings", # TBD
-    "LNS14000000":          "Unemployment rate", # good
 }
 
 API_BASE_URL = "https://api.bls.gov/publicAPI"
