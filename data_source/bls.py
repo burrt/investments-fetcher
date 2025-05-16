@@ -34,7 +34,7 @@ def _http_post(api_key: str, series_id: str, start_year: int, end_year: int):
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    return res.json()
+    return res.json(), series_id_map[series_id]
 
 def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int):
     """Get the BLS data for the specified series.

@@ -56,7 +56,7 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    return res.json()
+    return res.json(), gdp_table_id_map[table_id]
 
 def get_all_gdp(year: int, freq="Q"):
     """Get all the GDP data for the specified year.
@@ -66,4 +66,6 @@ def get_all_gdp(year: int, freq="Q"):
         freq (str, optional): GDP granularity. Defaults to "Q" i.e. quarterly.
     """
     for table_id in gdp_table_id_map:
-        get_gdp(table_id, year, freq)
+        return
+        # TODO: fix
+        # get_gdp(table_id, year, freq)

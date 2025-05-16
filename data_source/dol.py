@@ -20,5 +20,5 @@ def get_unemployment_weekly_claims(api_key: str):
 
     params = {"X-API-KEY": api_key, "sort": "desc", "limit": "1"}
     res = requests.get(f"{API_BASE_URL}/v4/get/ETA/ui_national_weekly_claims/json", params=params, timeout=120)
-    return res.json()
+    return res.json(), "Insurance National Weekly Claims"
 
