@@ -33,7 +33,7 @@ def _fetch_data(event: dict, context):
     dol_api_key = param_store.get_param_value('/investments-fetcher/dol/api')
     start_year = event['start_year']
     end_year = event['end_year']
-    freq = event['frequency']
+    freq = event.get('frequency', 'Q')
     data = ""
 
     if event['data_source'] == "bea":
@@ -42,12 +42,12 @@ def _fetch_data(event: dict, context):
     elif event['data_source'] == "bls":
         data = bls.get_series_data(bls_api_key, event['data_id'], start_year, end_year)
     elif event['data_source'] == "dol":
-        event['data_source'] = "10281"
+        event['data_id'] = "10281"
         data = dol.get_unemployment_weekly_claims(dol_api_key)
 
     logging.info(data)
 
-    s3.upload_data(event['data_id'], start_year, end_year, data)
+    s3.upload_data(event['data_source'], event['data_id'], start_year, end_year, data)
 
     return "OK"
 
@@ -68,7 +68,7 @@ def main():
     _setup_logging(str(uuid.uuid4()))
     event = {
         "data_source": "dol",
-        "data_id": "T10101",
+        "data_id": "10281",
         "start_year": "2023",
         "end_year": "2024",
         "frequency": "Q"
