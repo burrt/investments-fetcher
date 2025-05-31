@@ -6,6 +6,7 @@ import logging
 import requests
 
 gdp_table_id_map = {
+    # GDP series code: A191RL
     "T10101": "(Table 1. Real Gross Domestic Product and Related Measures: Percent Change from Preceding Period)",
     "T10102": "(Table 2. Contributions to Percent Change in Real Gross Domestic Product)",
     "T10103": "(Table 3. Gross Domestic Product: Level and Change from Preceding Period)",
@@ -18,7 +19,7 @@ gdp_table_id_map = {
     "T10108": "(Table 8. Personal Income and Its Disposition)",
 }
 
-API_BASE_URL = "https://apps.bea.gov/api/data"
+API_BASE_URL = "https://apps.bea.gov"
 
 def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
     """Get the GDP data for the given ID.
@@ -39,7 +40,7 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
     # Appendix B – NIPA (National Income and Product Accounts)
     data_set_name = "NIPA"
 
-    logging.info(f"Getting GDP ({table_id}) for year {year}")
+    logging.info(f"Getting {gdp_table_id_map[table_id]}, table ID: ({table_id}) for year {year}")
 
     params = {
         "UserID": api_key,
@@ -51,12 +52,12 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
         "Frequency": freq,
         "ResultFormat": "JSON",
     }
-    res = requests.get(f"{API_BASE_URL}", params=params, timeout=120)
+    res = requests.get(f"{API_BASE_URL}/api/data", params=params, timeout=120)
 
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    return res.json(), gdp_table_id_map[table_id]
+    return res.json()["BEAAPI"]["Results"]["Data"][-1], gdp_table_id_map[table_id]
 
 def get_all_gdp(year: int, freq="Q"):
     """Get all the GDP data for the specified year.

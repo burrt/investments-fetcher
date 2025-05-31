@@ -18,7 +18,11 @@ def get_unemployment_weekly_claims(api_key: str):
         json: response in json form
     """
 
-    params = {"X-API-KEY": api_key, "sort": "desc", "limit": "1"}
+    params = {"X-API-KEY": api_key, "sort": "desc", "sort_by": "rptdate", "limit": "1"}
     res = requests.get(f"{API_BASE_URL}/v4/get/ETA/ui_national_weekly_claims/json", params=params, timeout=120)
+
+    if res.status_code != 200:
+        raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
+
     return res.json(), "Insurance National Weekly Claims"
 
