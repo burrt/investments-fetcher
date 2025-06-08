@@ -87,12 +87,12 @@ def main():
 
     if source == "bls":
         event["data_source"] = "bls"
-        event["data_id"] = "WPSFD4"
+        event["data_id"] = sys.argv[2] if len(sys.argv) > 2 else "CUUR0000SA0"
     elif source == "dol":
         event["data_source"] = "dol"
     elif source == "fred":
         event["data_source"] = "fred"
-        event["data_id"] = "UMCSENT"
+        event["data_id"] = sys.argv[2] if len(sys.argv) > 2 else "UMCSENT"
         event["frequency"] = "m"
 
     _fetch_data(event, None)
