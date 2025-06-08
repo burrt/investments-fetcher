@@ -29,9 +29,11 @@ def _http_post(api_key: str, series_id: str, start_year: int, end_year: int):
         "registrationkey": api_key
     }
 
-    res = requests.post(f"{API_BASE_URL}/v2/timeseries/data/", data=json.dumps(data), headers=headers, timeout=120)
+    url = f"{API_BASE_URL}/v2/timeseries/data/"
+    res = requests.post(url, data=json.dumps(data), headers=headers, timeout=120)
 
     if res.status_code != 200:
+        logging.error(f"Failed to fetch data from BLS API {url}: {res.json()}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return res.json(), series_id_map[series_id]

@@ -8,6 +8,8 @@ import requests
 gdp_table_id_map = {
     # GDP series code: A191RL
     "T10101": "(Table 1. Real Gross Domestic Product and Related Measures: Percent Change from Preceding Period)",
+
+    # unused
     "T10102": "(Table 2. Contributions to Percent Change in Real Gross Domestic Product)",
     "T10103": "(Table 3. Gross Domestic Product: Level and Change from Preceding Period)",
     "T10104": "(Table 4. Price Indexes for Gross Domestic Product and Related Measures: Percent Change from Preceding Period)",
@@ -52,9 +54,11 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
         "Frequency": freq,
         "ResultFormat": "JSON",
     }
-    res = requests.get(f"{API_BASE_URL}/api/data", params=params, timeout=120)
+    url = f"{API_BASE_URL}/api/data"
+    res = requests.get(url, params=params, timeout=120)
 
     if res.status_code != 200:
+        logging.error(f"Failed to fetch data from BEA API {url}: {res.json()}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return res.json()["BEAAPI"]["Results"]["Data"][-1], gdp_table_id_map[table_id]

@@ -2,6 +2,7 @@
 Docs: https://fred.stlouisfed.org/docs/api/fred/series_observations.html
 """
 
+import logging
 import requests
 
 API_BASE_URL = "https://api.stlouisfed.org"
@@ -24,9 +25,11 @@ def get_series_data(api_key: str, series_id: str, start_date: str, end_date: str
         "file_type": "json"
     }
 
-    res = requests.get(f"{API_BASE_URL}/fred/series/observations", params=params, timeout=120)
+    url = f"{API_BASE_URL}/fred/series/observations"
+    res = requests.get(url, params=params, timeout=120)
 
     if res.status_code != 200:
+        logging.error(f"Failed to fetch data from FRED API {url}: {res.json()}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return res.json(), series_id_map[series_id]
