@@ -13,5 +13,6 @@ cd ..
 zip -r deployment_package.zip aws -x "*/__pycache__/*"
 zip -r deployment_package.zip data_source -x "*/__pycache__/*"
 zip -r deployment_package.zip logger -x "*/__pycache__/*"
+zip -r deployment_package.zip notifier -x "*/__pycache__/*"
 
 zip deployment_package.zip fetcher.py -x "*/__pycache__/*"
