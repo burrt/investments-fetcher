@@ -5,6 +5,7 @@ Fetches investments data.
 import uuid
 import logging
 import sys
+import traceback
 from datetime import datetime, timezone
 from aws import param_store
 from aws import s3
@@ -70,7 +71,17 @@ def lambda_handler(event: dict, context):
         context (LambdaContext): AWS request context
     """
     _setup_logging(context.aws_request_id)
-    _fetch_data(event, context)
+
+    try:
+        _fetch_data(event, context)
+    except Exception as ex:
+        slack_errors_webhook_url = param_store.get_param_value('/investments-fetcher/errors/slack/webhook-url')
+        error_json = {
+            "type": type(ex).__name__,
+            "message": str(ex),
+            "traceback": traceback.format_exc()
+        }
+        slack.post_to_channel(slack_errors_webhook_url, "API ERROR", error_json)
 
 def main():
     """
