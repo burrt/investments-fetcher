@@ -89,7 +89,7 @@ def main():
     """
     _setup_logging(str(uuid.uuid4()))
 
-    source = sys.argv[1]
+    source = "bea" if len(sys.argv) == 1 else sys.argv[1]
     event = {
         "data_source": "bea",
         "data_id": "T10101",
