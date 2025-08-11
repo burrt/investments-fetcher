@@ -61,7 +61,13 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
         logging.error(f"Failed to fetch data from BEA API {url}: {res.json()}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    return res.json()["BEAAPI"]["Results"]["Data"][-1], gdp_table_id_map[table_id]
+    results = res.json()["BEAAPI"]["Results"]["Data"]
+    sorted_gdp = sorted([r for r in results if r.get("LineDescription") == "Gross domestic product"], key=lambda k : k["TimePeriod"], reverse=True)[0]
+    latest_gdp = {
+        "period": sorted_gdp["TimePeriod"],
+        "percentage_change": sorted_gdp["DataValue"]
+    }
+    return latest_gdp, gdp_table_id_map[table_id]
 
 def get_all_gdp(year: int, freq="Q"):
     """Get all the GDP data for the specified year.
