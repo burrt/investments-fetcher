@@ -11,8 +11,8 @@ Pulls economic data from official sources.
 $ git clone https://github.com/burrt/investments-fetcher.git
 
 # install venv if it's not already installed
-$~/investments-fetcher python3 -m venv venv
-$~/investments-fetcher source venv/bin/activate
+$ python3 -m venv venv
+$ source venv/bin/activate
 
 # use pip-tools
 $ python -m pip install pip-tools

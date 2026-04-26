@@ -2,7 +2,9 @@
 Docs: https://fred.stlouisfed.org/docs/api/fred/series_observations.html
 """
 
+import json
 import logging
+import os
 import requests
 
 API_BASE_URL = "https://api.stlouisfed.org"
@@ -38,9 +40,14 @@ def get_series_data(api_key: str, series_id: str, start_date: str, end_date: str
 
     url = f"{API_BASE_URL}/fred/series/observations"
     res = requests.get(url, params=params, timeout=120)
+    payload = res.json()
+
+    if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":
+        with open("payload.json", "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
 
     if res.status_code != 200:
-        logging.error(f"Failed to fetch data from FRED API {url}: {res.json()}")
+        logging.error(f"Failed to fetch data from FRED API {url}: {payload}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    return res.json(), series_id_map[series_id]
+    return payload, series_id_map[series_id]

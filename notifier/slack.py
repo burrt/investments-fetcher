@@ -1,9 +1,9 @@
 import json
 import requests
 
-def post_to_channel(webhook_url: str, data_name: str, data):
+def post_to_channel(webhook_url: str, data_source: str, data_id: str, data_name: str, data):
     msg = {
-        "text": f"*{data_name}*\n```\n{json.dumps(data, indent=2)}\n```"
+        "text": f"[*{data_source.upper()}*] [*{data_id}*] *{data_name}*\n```\n{json.dumps(data, indent=2)}\n```"
     }
 
     res = requests.post(webhook_url, data=json.dumps(msg), timeout=120)

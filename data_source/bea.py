@@ -2,7 +2,9 @@
 Docs: https://apps.bea.gov/api/_pdf/bea_web_service_api_user_guide.pdf
 """
 
+import json
 import logging
+import os
 import requests
 
 gdp_table_id_map = {
@@ -56,16 +58,26 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
     }
     url = f"{API_BASE_URL}/api/data"
     res = requests.get(url, params=params, timeout=120)
+    payload = res.json()
+
+    if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":
+        with open("payload.json", "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
 
     if res.status_code != 200:
-        logging.error(f"Failed to fetch data from BEA API {url}: {res.json()}")
+        logging.error(f"Failed to fetch data from BEA API {url}: {payload}")
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
-    results = res.json()["BEAAPI"]["Results"]["Data"]
-    sorted_gdp = sorted([r for r in results if r.get("LineDescription") == "Gross domestic product"], key=lambda k : k["TimePeriod"], reverse=True)[0]
+    return payload, gdp_table_id_map[table_id], filter_data_to_latest_datapoint(payload, table_id)
+
+def filter_data_to_latest_datapoint(json, table_id):
+    results = json["BEAAPI"]["Results"]["Data"]
+    sorted_gdp = sorted(
+        [r for r in results if r.get("LineDescription") == "Gross domestic product"],
+        key=lambda k : k["TimePeriod"], reverse=True)
     latest_gdp = {
-        "period": sorted_gdp["TimePeriod"],
-        "percentage_change": sorted_gdp["DataValue"]
+        "period": sorted_gdp[0]["TimePeriod"],
+        "percentage_change": sorted_gdp[0]["DataValue"]
     }
     return latest_gdp, gdp_table_id_map[table_id]
 

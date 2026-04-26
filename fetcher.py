@@ -4,6 +4,7 @@ Fetches investments data.
 
 import uuid
 import logging
+import os
 import sys
 import traceback
 from datetime import datetime, timezone
@@ -13,8 +14,10 @@ from data_source import bea
 from data_source import bls
 from data_source import dol
 from data_source import fred
+from dotenv import load_dotenv
 from logger.json_logger import JsonFormatter
 from notifier import slack
+from pathlib import Path
 
 # setup logger
 json_logger = logging.getLogger()
@@ -33,23 +36,24 @@ def _fetch_data(event: dict, context):
 
     logging.info("Fetching finance data...")
 
-    bea_api_key = param_store.get_param_value('/investments-fetcher/bea/api')
-    bls_api_key = param_store.get_param_value('/investments-fetcher/bls/api')
-    dol_api_key = param_store.get_param_value('/investments-fetcher/dol/api')
-    fred_api_key = param_store.get_param_value('/investments-fetcher/fred/api')
-    slack_webhook_url = param_store.get_param_value('/investments-fetcher/slack/webhook-url')
+    bea_api_key = os.getenv("BEA_API_KEY") or param_store.get_param_value('/investments-fetcher/bea/api')
+    bls_api_key = os.getenv("BLS_API_KEY") or param_store.get_param_value('/investments-fetcher/bls/api')
+    dol_api_key = os.getenv("DOL_API_KEY") or param_store.get_param_value('/investments-fetcher/dol/api')
+    fred_api_key = os.getenv("FRED_API_KEY") or param_store.get_param_value('/investments-fetcher/fred/api')
+    slack_webhook_url = os.getenv("SLACK_TESTING_WEBHOOK_URL") or param_store.get_param_value('/investments-fetcher/slack/webhook-url')
 
     start_date = event.get('start_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
     end_date = event.get('end_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
     freq = event.get('frequency', 'Q')
     data = ""
     data_name = ""
+    slack_filtered_data = None
 
     if event['data_source'] == "bea":
-        data, data_name = bea.get_gdp(bea_api_key, event['data_id'], start_date[:4], freq)
+        data, data_name, slack_filtered_data = bea.get_gdp(bea_api_key, event['data_id'], start_date[:4], freq)
         end_date = start_date
     elif event['data_source'] == "bls":
-        data, data_name = bls.get_series_data(bls_api_key, event['data_id'], start_date[:4], end_date[:4])
+        data, data_name, slack_filtered_data = bls.get_series_data(bls_api_key, event['data_id'], start_date[:4], end_date[:4])
     elif event['data_source'] == "dol":
         event['data_id'] = "10281"
         data, data_name = dol.get_unemployment_weekly_claims(dol_api_key)
@@ -57,9 +61,15 @@ def _fetch_data(event: dict, context):
         data, data_name = fred.get_series_data(fred_api_key, event['data_id'], start_date, end_date, freq)
 
     logging.info(data)
-    slack.post_to_channel(slack_webhook_url, data_name, data)
+    slack.post_to_channel(
+        slack_webhook_url,
+        event['data_source'],
+        event['data_id'],
+        data_name,
+        slack_filtered_data if slack_filtered_data is not None else data)
 
-    s3.upload_data(event['data_source'], event['data_id'], start_date[:4], end_date[:4], data)
+    if os.getenv("SKIP_S3_UPLOAD") == "false":
+        s3.upload_data(event['data_source'], event['data_id'], start_date[:4], end_date[:4], data)
 
     return "OK"
 
@@ -81,7 +91,7 @@ def lambda_handler(event: dict, context):
             "message": str(ex),
             "traceback": traceback.format_exc()
         }
-        slack.post_to_channel(slack_errors_webhook_url, "API ERROR", error_json)
+        slack.post_to_channel(slack_errors_webhook_url, event['data_source'], "API ERROR", error_json)
 
 def main():
     """
@@ -89,10 +99,16 @@ def main():
     """
     _setup_logging(str(uuid.uuid4()))
 
+    env_file = Path(".env")
+    if env_file.exists():
+        load_dotenv(env_file)
+
     source = "bea" if len(sys.argv) == 1 else sys.argv[1]
     event = {
         "data_source": "bea",
         "data_id": "T10101",
+        "start_year": "2025",
+        "end_year": "2026",
         "frequency": "Q"
     }
 
