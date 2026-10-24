@@ -1,6 +1,7 @@
 """
 Docs: https://www.bls.gov/developers/api_faqs.htm
 Series IDs can be found at https://www.bls.gov/help/hlpforma.htm
+Organisation name: Wall St Bumpkin
 """
 
 import json
