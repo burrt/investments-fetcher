@@ -1,11 +1,11 @@
 import json
 import requests
 
-def post_to_channel(webhook_url: str, data_source: str, data_id: str, data_name: str, data):
+def post_to_channel(webhook_url: str, data_source: str, data_id: str, data_name: str, data, *, timeout: int):
     msg = {
         "text": f"[*{data_source.upper()}*] [*{data_id}*] *{data_name}*\n```\n{json.dumps(data, indent=2)}\n```"
     }
 
-    res = requests.post(webhook_url, data=json.dumps(msg), timeout=120)
+    res = requests.post(webhook_url, data=json.dumps(msg), timeout=timeout)
     if res.status_code != 200:
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")

@@ -24,7 +24,7 @@ series_id_map = {
 API_BASE_URL = "https://api.bls.gov/publicAPI"
 headers = {'Content-type': 'application/json'}
 
-def _http_post(api_key: str, series_id: str, start_year: int, end_year: int):
+def _http_post(api_key: str, series_id: str, start_year: int, end_year: int, *, timeout: int):
     data = {
         "seriesid": [series_id],
         "startyear": start_year,
@@ -33,7 +33,7 @@ def _http_post(api_key: str, series_id: str, start_year: int, end_year: int):
     }
 
     url = f"{API_BASE_URL}/v2/timeseries/data/"
-    res = requests.post(url, data=json.dumps(data), headers=headers, timeout=120)
+    res = requests.post(url, data=json.dumps(data), headers=headers, timeout=timeout)
     payload = res.json()
 
     if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":
@@ -78,7 +78,7 @@ def filter_data_to_latest_datapoint(json):
         "mom_percent": float(mom_percent),
     }
 
-def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int):
+def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int, *, timeout: int):
     """Get the BLS data for the specified series.
 
     Args:
@@ -92,4 +92,4 @@ def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int
     """
     logging.info(f"Getting ({series_id}) {series_id_map[series_id]} for years {start_year}-{end_year}")
 
-    return _http_post(api_key, series_id, start_year, end_year)
+    return _http_post(api_key, series_id, start_year, end_year, timeout=timeout)

@@ -27,19 +27,19 @@ series_id_map = {
     "PCE": "Personal Consumption Expenditure (PCE)",
 }
 
-def get_series_data(api_key: str, series_id: str, start_date: str, end_date: str, freq: str):
+def get_series_data(api_key: str, series_id: str, start_date: str, end_date: str, freq: str, *, timeout: int):
     params = {
         "api_key": api_key,
         "series_id": series_id,
         "observation_start": start_date,
-        # "realtime_end": end_date, # defaults to 9999-12-31 (latest available)
+        "observation_end": end_date,
         "frequency": freq,
         "sort_order": "desc",
         "file_type": "json"
     }
 
     url = f"{API_BASE_URL}/fred/series/observations"
-    res = requests.get(url, params=params, timeout=120)
+    res = requests.get(url, params=params, timeout=timeout)
     payload = res.json()
 
     if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":

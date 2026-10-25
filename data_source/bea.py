@@ -25,7 +25,7 @@ gdp_table_id_map = {
 
 API_BASE_URL = "https://apps.bea.gov"
 
-def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
+def get_gdp(api_key: str, table_id: str, year: int, freq="Q", *, timeout: int):
     """Get the GDP data for the given ID.
 
     Args:
@@ -57,7 +57,7 @@ def get_gdp(api_key: str, table_id: str, year: int, freq="Q"):
         "ResultFormat": "JSON",
     }
     url = f"{API_BASE_URL}/api/data"
-    res = requests.get(url, params=params, timeout=120)
+    res = requests.get(url, params=params, timeout=timeout)
     payload = res.json()
 
     if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":

@@ -16,17 +16,26 @@ source venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-uv downloads Python 3.12 if needed, matching CI. If replacing an older venv,
-deactivate it and move it aside before creating the new one.
+uv downloads Python 3.12 if needed. Move any older venv aside first.
 
-Configure credentials in `.env` or AWS Parameter Store, then run:
+Set the provider's API key (e.g. `BEA_API_KEY`) and `SLACK_TESTING_WEBHOOK_URL`
+in `.env`. See options and examples:
 
 ```bash
-python fetcher.py
+python fetcher.py --help
 ```
 
-Local runs currently send Slack notifications and may upload to S3; dry-run mode
-is not yet implemented.
+`--dry-run` fetches real data and posts to testing Slack. It skips S3 and Parameter
+Store; missing credentials cause an error.
+
+Without `--dry-run`, runs use `SLACK_WEBHOOK_URL` (or AWS Parameter Store) and upload
+to S3 only when `SKIP_S3_UPLOAD=false`.
+
+Run tests (no network or credentials needed):
+
+```bash
+python -m unittest discover -s tests
+```
 
 ## Updating packages
 
@@ -39,12 +48,10 @@ uv pip install -r requirements.txt
 uv pip check
 ```
 
-Edit `requirements.in` to add or remove direct dependencies. The commands above
-refresh the pinned versions in `requirements.txt` and install them locally.
-Review and validate the changes before committing; CI installs these exact pins.
+Edit `requirements.in` to add or remove dependencies. Review and validate the
+updated `requirements.txt` before committing; CI installs those exact versions.
 
 ## Deploying to AWS Lambda
 
-Pushes to `main` deploy automatically through [GitHub Actions](.github/workflows/cicd.yml).
-The workflow authenticates with AWS using OIDC, builds the ZIP with
-`prepare-deploy.sh`, and tags the Lambda function with the deployed commit hash.
+Pushes to `main` deploy automatically through [GitHub Actions](.github/workflows/cicd.yml)
+using `prepare-deploy.sh`. The Lambda function is tagged with the deployed commit.

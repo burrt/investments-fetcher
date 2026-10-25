@@ -10,7 +10,7 @@ import requests
 
 API_BASE_URL = "https://apiprod.dol.gov"
 
-def get_unemployment_weekly_claims(api_key: str):
+def get_unemployment_weekly_claims(api_key: str, *, timeout: int):
     """Get Insurance National Weekly Claims - https://dataportal.dol.gov/datasets/10281
 
     Args:
@@ -23,7 +23,7 @@ def get_unemployment_weekly_claims(api_key: str):
     params = {"X-API-KEY": api_key, "sort": "desc", "sort_by": "rptdate", "limit": "1"}
 
     url = f"{API_BASE_URL}/v4/get/ETA/ui_national_weekly_claims/json"
-    res = requests.get(url, params=params, timeout=120)
+    res = requests.get(url, params=params, timeout=timeout)
     payload = res.json()
 
     if os.getenv("SKIP_LOCAL_DEBUG_PAYLOAD") == "false":
