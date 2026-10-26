@@ -3,6 +3,8 @@ deployment_package.zip
 data/
 package/
 
+.DS_store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

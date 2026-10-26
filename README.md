@@ -18,18 +18,19 @@ uv pip install -r requirements.txt
 
 uv downloads Python 3.12 if needed. Move any older venv aside first.
 
-Set the provider's API key (e.g. `BEA_API_KEY`) and `SLACK_TESTING_WEBHOOK_URL`
-in `.env`. See options and examples:
+For local runs, put the provider's API key (e.g. `BEA_API_KEY`) and Slack webhooks
+in `.env`. Both webhook variables can be set:
+
+* `--dry-run`: uses `SLACK_TESTING_WEBHOOK_URL`; skips S3 and Parameter Store.
+* Normal runs: use `SLACK_WEBHOOK_URL`, falling back to Parameter Store for missing
+  credentials. S3 uploads require `SKIP_S3_UPLOAD=false`.
+
+Lambda uses environment variables and Parameter Store, without loading `.env`.
+See commands and examples:
 
 ```bash
 python fetcher.py --help
 ```
-
-`--dry-run` fetches real data and posts to testing Slack. It skips S3 and Parameter
-Store; missing credentials cause an error.
-
-Without `--dry-run`, runs use `SLACK_WEBHOOK_URL` (or AWS Parameter Store) and upload
-to S3 only when `SKIP_S3_UPLOAD=false`.
 
 Run tests (no network or credentials needed):
 
