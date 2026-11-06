@@ -63,7 +63,7 @@ def _http_post(api_key: str, series_id: str, start_year: int, end_year: int, *, 
             json.dump(payload, f, indent=2, ensure_ascii=False)
 
     if res.status_code != 200:
-        logging.error(f"Failed to fetch data from BLS API {url}: {payload}")
+        logging.error("Failed to fetch data from BLS API %s: %s", url, payload)
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return payload, series_id_map[series_id], filter_data_to_latest_datapoint(payload)
@@ -123,6 +123,9 @@ def get_series_data(api_key: str, series_id: str, start_year: int, end_year: int
     Returns:
         json: response in json form
     """
-    logging.info(f"Getting ({series_id}) {series_id_map[series_id]} for years {start_year}-{end_year}")
+    logging.info(
+        "Getting (%s) %s for years %s-%s",
+        series_id, series_id_map[series_id], start_year, end_year,
+    )
 
     return _http_post(api_key, series_id, start_year, end_year, timeout=timeout)

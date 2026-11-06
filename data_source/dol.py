@@ -51,7 +51,7 @@ def get_unemployment_weekly_claims(api_key: str, *, timeout: int):
             json.dump(payload, f, indent=2, ensure_ascii=False)
 
     if res.status_code != 200:
-        logging.error(f"Failed to fetch data from DOL API {url}: {payload}")
+        logging.error("Failed to fetch data from DOL API %s: %s", url, payload)
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return payload, DATASET_NAME

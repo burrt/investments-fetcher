@@ -72,7 +72,7 @@ def get_gdp(api_key: str, table_id: str, year: int | str, freq="Q", *, timeout: 
     frequency = _validate_table_and_frequency(table_id, freq)
     table_name = gdp_table_id_map[table_id]
 
-    logging.info(f"Getting {table_name}, table ID: ({table_id}) for year {year}")
+    logging.info("Getting %s, table ID: (%s) for year %s", table_name, table_id, year)
 
     payload = _http_get(api_key, table_id, year, frequency, timeout=timeout)
     _redact_api_key(payload)

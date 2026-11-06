@@ -75,7 +75,7 @@ def get_series_data(api_key: str, series_id: str, start_date: str, end_date: str
             json.dump(payload, f, indent=2, ensure_ascii=False)
 
     if res.status_code != 200:
-        logging.error(f"Failed to fetch data from FRED API {url}: {payload}")
+        logging.error("Failed to fetch data from FRED API %s: %s", url, payload)
         raise RuntimeError(f"Unexpected HTTP status code: {res.status_code}")
 
     return payload, series_id_map[series_id]

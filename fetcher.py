@@ -41,8 +41,8 @@ def _get_setting(env_name: str, param_name: str, dry_run: bool):
     return param_store.get_param_value(param_name)
 
 def _fetch_data(event: dict, context, dry_run: bool = False):
-    logging.info(f"Event: {event}")
-    logging.info(f"Context: {context}")
+    logging.info("Event: %s", event)
+    logging.info("Context: %s", context)
 
     logging.info("Fetching finance data...")
 
