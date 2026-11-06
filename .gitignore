@@ -1,4 +1,6 @@
 *.json
+# Sanitized public BEA observations used by offline regression tests.
+!tests/fixtures/bea_nipa_gdp.json
 deployment_package.zip
 data/
 package/

@@ -1,0 +1,986 @@
+{
+  "provenance": {
+    "retrieved_on": "2026-11-06",
+    "api_url": "https://apps.bea.gov/api/data",
+    "parameters": {
+      "method": "GetData",
+      "DataSetName": "NIPA",
+      "Frequency": "A,Q",
+      "Year": "2025,2026",
+      "ResultFormat": "JSON"
+    },
+    "selection": "GDP line 1 for 2025, 2026Q2 and 2026Q3; component line 2 for 2026Q3. Original result metadata and notes retained. Request credentials omitted.",
+    "headline_release": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+    "headline_reconciliation": "Release dated 2026-10-29: 2026Q3 real GDP growth 3.4 percent SAAR, matching T10101/A191RL."
+  },
+  "tables": {
+    "T10101": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:41.217",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10101",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.3",
+              "NoteRef": "T10101"
+            },
+            {
+              "TableName": "T10101",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.2",
+              "NoteRef": "T10101"
+            },
+            {
+              "TableName": "T10101",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "3.4",
+              "NoteRef": "T10101"
+            },
+            {
+              "TableName": "T10101",
+              "SeriesCode": "DPCERL",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "3.8",
+              "NoteRef": "T10101"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10101",
+              "NoteText": "Table 1.1.1. Percent Change From Preceding Period in Real Gross Domestic Product [Percent] - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "T10102": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:41.253",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10102",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.3",
+              "NoteRef": "T10102"
+            },
+            {
+              "TableName": "T10102",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.2",
+              "NoteRef": "T10102"
+            },
+            {
+              "TableName": "T10102",
+              "SeriesCode": "A191RL",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "3.4",
+              "NoteRef": "T10102"
+            },
+            {
+              "TableName": "T10102",
+              "SeriesCode": "DPCERY",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Quantity Contributions",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "2.52",
+              "NoteRef": "T10102"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10102",
+              "NoteText": "Table 1.1.2. Contributions to Percent Change in Real Gross Domestic Product  - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "T10103": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:40.977",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10103",
+              "SeriesCode": "A191RA",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "122.084",
+              "NoteRef": "T10103"
+            },
+            {
+              "TableName": "T10103",
+              "SeriesCode": "A191RA",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "124.454",
+              "NoteRef": "T10103"
+            },
+            {
+              "TableName": "T10103",
+              "SeriesCode": "A191RA",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "125.489",
+              "NoteRef": "T10103"
+            },
+            {
+              "TableName": "T10103",
+              "SeriesCode": "DPCERA",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Quantity Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "127.495",
+              "NoteRef": "T10103"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10103",
+              "NoteText": "Table 1.1.3. Real Gross Domestic Product, Quantity Indexes [Index numbers, 2017=100] - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "T10104": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:42.917",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10104",
+              "SeriesCode": "A191RG",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "128.904",
+              "NoteRef": "T10104"
+            },
+            {
+              "TableName": "T10104",
+              "SeriesCode": "A191RG",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "133.416",
+              "NoteRef": "T10104"
+            },
+            {
+              "TableName": "T10104",
+              "SeriesCode": "A191RG",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "134.168",
+              "NoteRef": "T10104"
+            },
+            {
+              "TableName": "T10104",
+              "SeriesCode": "DPCERG",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "131.685",
+              "NoteRef": "T10104"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10104",
+              "NoteText": "Table 1.1.4. Price Indexes for Gross Domestic Product [Index numbers, 2017=100] - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "T10105": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:41.557",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10105",
+              "SeriesCode": "A191RC",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Current Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "30,861,292",
+              "NoteRef": "T10105"
+            },
+            {
+              "TableName": "T10105",
+              "SeriesCode": "A191RC",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Current Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "32,563,030",
+              "NoteRef": "T10105"
+            },
+            {
+              "TableName": "T10105",
+              "SeriesCode": "A191RC",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Current Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "33,010,036",
+              "NoteRef": "T10105"
+            },
+            {
+              "TableName": "T10105",
+              "SeriesCode": "DPCERC",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Current Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "22,312,825",
+              "NoteRef": "T10105"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10105",
+              "NoteText": "Table 1.1.5. Gross Domestic Product [Billions of dollars] - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "T10106": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:41.840",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10106",
+              "SeriesCode": "A191RX",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Chained Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "23,943,305",
+              "NoteRef": "T10106"
+            },
+            {
+              "TableName": "T10106",
+              "SeriesCode": "A191RX",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Chained Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "24,408,011",
+              "NoteRef": "T10106"
+            },
+            {
+              "TableName": "T10106",
+              "SeriesCode": "A191RX",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Chained Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "24,611,077",
+              "NoteRef": "T10106"
+            },
+            {
+              "TableName": "T10106",
+              "SeriesCode": "DPCERX",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Chained Dollars",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "6",
+              "DataValue": "16,944,918",
+              "NoteRef": "T10106"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10106",
+              "NoteText": "Table 1.1.6. Real Gross Domestic Product, Chained Dollars [Billions of chained (2017) dollars] - LastRevised: October 29, 2026"
+            },
+            {
+              "NoteRef": "T10106.1",
+              "NoteText": "Note. Chained (2017) dollar series are calculated as the product of the chain-type quantity index and the 2017 current-dollar value of the corresponding series, divided by 100. Because the formula for the chain-type quantity indexes uses weights of more than one period, the corresponding chained-dollar estimates are usually not additive. The residual line is the difference between the first line and the sum of the most detailed lines."
+            }
+          ]
+        }
+      }
+    },
+    "T10107": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:41.880",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10107",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.6",
+              "NoteRef": "T10107"
+            },
+            {
+              "TableName": "T10107",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "6.1",
+              "NoteRef": "T10107"
+            },
+            {
+              "TableName": "T10107",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.3",
+              "NoteRef": "T10107"
+            },
+            {
+              "TableName": "T10107",
+              "SeriesCode": "DPCERV",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.1",
+              "NoteRef": "T10107"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10107",
+              "NoteText": "Table 1.1.7. Percent Change From Preceding Period in Prices for Gross Domestic Product [Percent] - LastRevised: October 29, 2026"
+            },
+            {
+              "NoteRef": "T10107.1",
+              "NoteText": "1. The percent change for this series is calculated from the implicit price deflator in NIPA table 1.1.9."
+            }
+          ]
+        }
+      }
+    },
+    "T10108": {
+      "BEAAPI": {
+        "Results": {
+          "Statistic": "NIPA Table",
+          "UTCProductionTime": "2026-11-06T22:50:42.210",
+          "Dimensions": [
+            {
+              "Ordinal": "1",
+              "Name": "TableName",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "2",
+              "Name": "SeriesCode",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "3",
+              "Name": "LineNumber",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "4",
+              "Name": "LineDescription",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "5",
+              "Name": "TimePeriod",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "6",
+              "Name": "CL_UNIT",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "7",
+              "Name": "UNIT_MULT",
+              "DataType": "numeric",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "8",
+              "Name": "METRIC_NAME",
+              "DataType": "string",
+              "IsValue": "0"
+            },
+            {
+              "Ordinal": "9",
+              "Name": "DataValue",
+              "DataType": "numeric",
+              "IsValue": "1"
+            }
+          ],
+          "Data": [
+            {
+              "TableName": "T10108",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2025",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.6",
+              "NoteRef": "T10108"
+            },
+            {
+              "TableName": "T10108",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q2",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "6.1",
+              "NoteRef": "T10108"
+            },
+            {
+              "TableName": "T10108",
+              "SeriesCode": "A191RV",
+              "LineNumber": "1",
+              "LineDescription": "Gross domestic product",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Fisher Price Index",
+              "CL_UNIT": "Percent change, annual rate",
+              "UNIT_MULT": "0",
+              "DataValue": "2.3",
+              "NoteRef": "T10108"
+            },
+            {
+              "TableName": "T10108",
+              "SeriesCode": "DPCERJ",
+              "LineNumber": "2",
+              "LineDescription": "Personal consumption expenditures",
+              "TimePeriod": "2026Q3",
+              "METRIC_NAME": "Price Contributions",
+              "CL_UNIT": "Level",
+              "UNIT_MULT": "0",
+              "DataValue": "1.41",
+              "NoteRef": "T10108"
+            }
+          ],
+          "Notes": [
+            {
+              "NoteRef": "T10108",
+              "NoteText": "Table 1.1.8. Contributions to Percent Change in the Gross Domestic Product Price Index  - LastRevised: October 29, 2026"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

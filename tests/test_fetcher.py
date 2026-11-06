@@ -55,6 +55,9 @@ class FetcherTests(unittest.TestCase):
                     self.assertEqual(self.post_to_channel.call_args.args[0], "https://testing.example/webhook")
                     self.assertEqual(self.post_to_channel.call_args.kwargs["timeout"], 17)
                     self.assertEqual(self.post_to_channel.call_args.args[-1], result[2] if len(result) == 3 else result[0])
+                    if source == "dol":
+                        self.assertEqual(self.event["data_id"], "10305")
+                        self.assertEqual(self.post_to_channel.call_args.args[2], "10305")
         self.get_param_value.assert_not_called()
         self.upload_data.assert_not_called()
 
@@ -111,7 +114,7 @@ class FetcherTests(unittest.TestCase):
                 event = fetch.call_args.args[0]
                 self.assertEqual(fetch.call_args.kwargs, {"dry_run": True})
                 if event["data_source"] == "dol":
-                    self.assertEqual(event["data_id"], "10281")
+                    self.assertEqual(event["data_id"], "10305")
                 else:
                     self.assertEqual(event["data_id"], "T10101" if event["data_source"] == "bea" else "CUUR0000SA0")
                     self.assertEqual(event["start_year"], "2025-01-01")

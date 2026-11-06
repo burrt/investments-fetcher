@@ -69,6 +69,11 @@ def _fetch_data(event: dict, context, dry_run: bool = False):
     slack_filtered_data = None
 
     if event['data_source'] == "bea":
+        # TODO: Implement BEA date-range semantics: request all required years,
+        # filter to the requested quarters, and preserve the actual coverage in
+        # storage. Currently only the start year is fetched and --end is ignored.
+        # A separate latest-release mode must look into the prior year early in
+        # January; current-year GDP may not yet exist. See docs/bea.md.
         data, data_name, slack_filtered_data = bea.get_gdp(api_key, event['data_id'], start_date[:4], freq, timeout=HTTP_TIMEOUT_SECONDS)
         end_date = start_date
     elif event['data_source'] == "bls":
