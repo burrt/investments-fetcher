@@ -59,10 +59,10 @@ def _fetch_data(event: dict, context, dry_run: bool = False):
 
     start_date = event.get('start_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
     end_date = event.get('end_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
-    # TODO: Separate source frequency defaults here and in main(): retain BEA's Q,
-    # but omit FRED frequency unless aggregation is explicitly requested. The CLI's
-    # current m default averages weekly claims and rejects quarterly series; also
-    # validate source-specific frequency codes and the requested aggregation method.
+    # TODO: Preserve native FRED frequency in both entry points and its adapter;
+    # retain BEA's Q. CLI m averages ICSA/CCSA and rejects DPI/IEABC/IEABCP, while
+    # this fallback sends uppercase Q (FRED requires lowercase codes). Validate
+    # explicit aggregation against series metadata. See docs/fred.md for the plan.
     freq = event.get('frequency', 'Q')
     data = ""
     data_name = ""
@@ -156,6 +156,8 @@ Dry runs require the provider's API key and SLACK_TESTING_WEBHOOK_URL in .env.
         "data_id": "10281" if args.source == "dol" else args.data_id,
         "start_year": (args.start or today).isoformat(),
         "end_year": (args.end or today).isoformat(),
+        # TODO: Remove FRED's implicit monthly aggregation together with the
+        # _fetch_data fallback and fred.get_series_data; see docs/fred.md.
         "frequency": args.frequency or ("m" if args.source == "fred" else "Q")
     }
 
