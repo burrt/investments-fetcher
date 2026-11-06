@@ -74,7 +74,7 @@ def _fetch_data(event: dict, context, dry_run: bool = False):
     elif event['data_source'] == "bls":
         data, data_name, slack_filtered_data = bls.get_series_data(api_key, event['data_id'], start_date[:4], end_date[:4], timeout=HTTP_TIMEOUT_SECONDS)
     elif event['data_source'] == "dol":
-        event['data_id'] = "10281"
+        event['data_id'] = dol.DATASET_ID
         data, data_name = dol.get_unemployment_weekly_claims(api_key, timeout=HTTP_TIMEOUT_SECONDS)
     elif event['data_source'] == "fred":
         data, data_name = fred.get_series_data(api_key, event['data_id'], start_date, end_date, freq, timeout=HTTP_TIMEOUT_SECONDS)
@@ -153,7 +153,7 @@ Dry runs require the provider's API key and SLACK_TESTING_WEBHOOK_URL in .env.
     today = datetime.now(timezone.utc).date()
     event = {
         "data_source": args.source,
-        "data_id": "10281" if args.source == "dol" else args.data_id,
+        "data_id": dol.DATASET_ID if args.source == "dol" else args.data_id,
         "start_year": (args.start or today).isoformat(),
         "end_year": (args.end or today).isoformat(),
         # TODO: Remove FRED's implicit monthly aggregation together with the
