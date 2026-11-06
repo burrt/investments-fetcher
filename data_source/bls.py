@@ -1,7 +1,26 @@
 """
 Docs: https://www.bls.gov/developers/api_faqs.htm
-Series IDs can be found at https://www.bls.gov/help/hlpforma.htm
+Series ID formats and code lists: https://www.bls.gov/help/hlpforma.htm
 Organisation name: Wall St Bumpkin
+
+CPI-U mappings below cover the U.S. city average, with monthly index levels (1982-84=100).
+BLS uses seasonally adjusted (SA) indexes for the conventional
+monthly headline changes and not seasonally adjusted (NSA) indexes for headline
+12-month changes.
+Retain both variants; the IDs identify indexes, not growth rates.
+The current summary function still applies a generic monthly calculation; see TODO.
+
+Official mapping sources:
+- ID structure (third character: S = SA, U = NSA):
+  https://www.bls.gov/cpi/factsheets/cpi-series-ids.htm
+- All items, NSA / SA:
+  https://data.bls.gov/timeseries/CUUR0000SA0
+  https://data.bls.gov/timeseries/CUSR0000SA0
+- All items less food and energy, NSA / SA:
+  https://data.bls.gov/timeseries/CUUR0000SA0L1E
+  https://data.bls.gov/timeseries/CUSR0000SA0L1E
+- Monthly versus 12-month reporting convention (Table A):
+  https://www.bls.gov/news.release/cpi.nr0.htm
 """
 
 import json
@@ -11,13 +30,16 @@ import requests
 from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
 
 series_id_map = {
-    "CUUR0000SA0":          "Consumer Price Index - All Urban Consumers", # good
+    "CUUR0000SA0":          "Consumer Price Index - All Urban Consumers (All items, not seasonally adjusted)",
+    "CUSR0000SA0":          "Consumer Price Index - All Urban Consumers (All items, seasonally adjusted)",
+    "CUUR0000SA0L1E":       "Consumer Price Index - All Urban Consumers (All items less food and energy, not seasonally adjusted)",
+    "CUSR0000SA0L1E":       "Consumer Price Index - All Urban Consumers (All items less food and energy, seasonally adjusted)",
+
     "CES0000000001":        "National Employment, Hours, and Earnings", # good - https://www.bls.gov/news.release/empsit.t17.htm
     "LNS14000000":          "Unemployment rate", # good
     "WPSFD4":               "United States Producer Price Inflation MoM", # good
 
-    "CUUR0000SA0L1E":       "Consumer Price Index - All Urban Consumers (All items less food and energy)", # good
-    "PCU22112222112241":    "Producer Price Index Industry Data - Current Series", # TBD
+    "PCU22112222112241":    "Producer Price Index - Residential Electric Power (not seasonally adjusted)",
     "WPS141101":            "Producer Price Index Commodity Data - Current Series", # good
 }
 
@@ -47,6 +69,17 @@ def _http_post(api_key: str, series_id: str, start_year: int, end_year: int, *, 
     return payload, series_id_map[series_id], filter_data_to_latest_datapoint(payload)
 
 def filter_data_to_latest_datapoint(json):
+    # TODO: Replace the generic first-two-records / mom_percent summary with
+    # series-aware period selection and calculations:
+    # - Select monthly records (M01-M12) by year and period; exclude annual and
+    #   half-year summaries, and handle missing/insufficient observations explicitly.
+    # - Match the previous calendar month for MoM or the same month a year earlier
+    #   for YoY; fetch prior-year data when needed, including January comparisons.
+    # - Use SA CPI for headline MoM and NSA CPI for headline YoY. Payrolls need
+    #   absolute changes (source units: thousands of jobs); unemployment needs
+    #   percentage-point changes. Preserve both periods and label each result.
+    # - Verify year boundaries, gaps and short responses, then reconcile calculations
+    #   with dated official tables using the same vintage and reporting precision.
     series = json["Results"]["series"][0]["data"]
 
     latest = series[0]

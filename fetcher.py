@@ -59,6 +59,10 @@ def _fetch_data(event: dict, context, dry_run: bool = False):
 
     start_date = event.get('start_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
     end_date = event.get('end_year', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
+    # TODO: Separate source frequency defaults here and in main(): retain BEA's Q,
+    # but omit FRED frequency unless aggregation is explicitly requested. The CLI's
+    # current m default averages weekly claims and rejects quarterly series; also
+    # validate source-specific frequency codes and the requested aggregation method.
     freq = event.get('frequency', 'Q')
     data = ""
     data_name = ""
